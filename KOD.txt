@@ -1,0 +1,125 @@
+#include <stdint.h>
+#include <stm32f4xx.h>
+
+void GPIO_init(void);
+void delay(int);
+void Y();
+void A();
+void I();
+void Z();
+
+void V();
+void Z();
+char asci;
+
+void clearLed();
+
+int main(void){
+	GPIO_init();
+	while (1)
+	{
+		Y();
+		asci='Y';
+		delay(500);
+		A();
+		asci='A';
+		delay(500);
+		I();
+		asci='I';
+		delay(500);
+		Z();
+		asci='Z';
+		delay(500);
+		V();
+		asci='V';
+		delay(500);
+	    Z();
+		asci='Z';
+		delay(500);
+		clearLed();
+		delay(500);
+
+
+
+	}
+
+}
+void GPIO_init(void){
+	RCC->AHB1ENR |= 0x8;
+
+	GPIOD->MODER |= (1 << 14);
+	GPIOD->MODER |= (1 << 16);
+	GPIOD->MODER |= (1 << 18);
+	GPIOD->MODER |= (1 << 20);
+	GPIOD->MODER |= (1 << 22);
+	GPIOD->MODER |= (1 << 24);
+	GPIOD->MODER |= (1 << 26);
+	GPIOD->MODER |= (1 << 28);
+	GPIOD->MODER |= (1 << 30);
+}
+
+void delay(int d){
+	int i;
+	for(; d>0 ;d--){
+		for(i =0; i<2657;i++);
+	}
+}
+void clearLed()
+{
+	GPIOD->ODR &= ~(1 << 7);
+	GPIOD->ODR &= ~(1 << 8);
+	GPIOD->ODR &= ~(1 << 9);
+	GPIOD->ODR &= ~(1 << 10);
+	GPIOD->ODR &= ~(1 << 11);
+	GPIOD->ODR &= ~(1 << 12);
+	GPIOD->ODR &= ~(1 << 13);
+	GPIOD->ODR &= ~(1 << 14);
+	GPIOD->ODR &= ~(1 << 15);
+}
+void Y()//PD7,PD11,PD9,PD14
+{
+	clearLed();
+	GPIOD->ODR |= (1 << 9);
+	GPIOD->ODR |= (1 << 7);
+	GPIOD->ODR |= (1 << 11);
+	GPIOD->ODR |= (1 << 14);
+}
+void A()//PD15,PD12,PD8,PD10,PD13
+{
+	clearLed();
+	GPIOD->ODR |= (1 << 15);
+	GPIOD->ODR |= (1 << 12);
+	GPIOD->ODR |= (1 << 8);
+	GPIOD->ODR |= (1 << 10);
+	GPIOD->ODR |= (1 << 13);
+}
+void I()//PD8,PD11,PD14
+{
+	clearLed();
+	GPIOD->ODR |= (1 << 8);
+	GPIOD->ODR |= (1 << 11);
+	GPIOD->ODR |= (1 << 14);
+}
+void Z()//PD7,PD8,PD9,PD11,PD13,PD14,PD15
+{
+	clearLed();
+	GPIOD->ODR |= (1 << 7);
+	GPIOD->ODR |= (1 << 8);
+	GPIOD->ODR |= (1 << 9);
+	GPIOD->ODR |= (1 << 11);
+	GPIOD->ODR |= (1 << 13);
+	GPIOD->ODR |= (1 << 14);
+	GPIOD->ODR |= (1 << 15);
+}
+void V()//PD9,PD12,PD14,PD10,PD7
+{
+	clearLed();
+	GPIOD->ODR |= (1 << 9);
+	GPIOD->ODR |= (1 << 12);
+	GPIOD->ODR |= (1 << 14);
+	GPIOD->ODR |= (1 << 10);
+	GPIOD->ODR |= (1 << 7);
+}
+
+
+
